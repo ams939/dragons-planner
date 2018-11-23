@@ -5,3 +5,5 @@ Import the .sql file into your database
 
 Add your database's credentials into the DatabaseCredentials.csv file in csv format on the first line in
 the following order: hostname,use,password,databasename
+
+Launch the server.js file and navigate to localhost:8080/index.html
