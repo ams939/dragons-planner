@@ -16,11 +16,27 @@ exports.buildingCoords = function(building_code) {
   var building_table = 'buildings';
 
   var query = `
-    SELECT coordinates FROM ` + building_table + ` WHERE code=` + building_code;
+    SELECT lat,lon FROM ` + building_table + ` WHERE code=` + building_code;
+
+  return query;
 }
 
 // Insert building information into table
 exports.insertBuildingInfo = function(building_json) {
   var building_table = 'buildings';
-  // WIP
+
+  var query = `
+  INSERT INTO ` + building_table + ` (code, name, description, department, street_address, lat, lon)`
+  + ` VALUES (`
+  + building_json.code + `,`
+  + building_json.name + `,`
+  + building_json.description + `,`
+  + building_json.department + `,`
+  + building_json.street_address + `,`
+  + building_json.lat.toString() + `,`
+  + building_json.lon.toString()
+  + `)`
+
+  return query
+
 }

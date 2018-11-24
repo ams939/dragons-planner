@@ -42,6 +42,8 @@ exports.connectDB = function() {
 
 
 // Database object for making queries into local mysql database
+// Returns queries in JSON format:
+// {success:<true/false>, results:<result of query as JSON>, error:<null if success, otherwise error info as json>}
 class Database extends EventEmitter {
   constructor() {
     super();
@@ -50,11 +52,18 @@ class Database extends EventEmitter {
   getRecords(query) {
     var self = this;
     var connection = exports.connectDB();
+    var query_result = {};
     connection.query(query, function(err,rows,fields) {
       if (err) {
-        self.emit('records', null);
+        query_result['success'] = false;
+        query_result['result'] = rows;
+        query_result['error'] = err;
+        self.emit('records', query_result);
       } else {
-        self.emit('records', rows);
+        query_result['success'] = true;
+        query_result['result'] = rows;
+        query_result['error'] = null;
+        self.emit('records', query_result);
       }
     });
   }

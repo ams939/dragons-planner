@@ -1,0 +1,29 @@
+
+<html>
+<head>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="./client_functions.js" type="text/javascript"></script>
+
+  <title>
+      Admin's Building adding page
+  </title>
+</head>
+<body>
+  <div>
+    <h2>Add new building</h2>
+  </div>
+  <div>
+    <input type = text id = "building_code" placeholder = "Enter building code."/><br>
+    <input type = text id = "building_name" placeholder = "Enter building name."/><br>
+    <input type = text id = "building_desc" placeholder = "Enter building description."/><br>
+    <input type = text id = "building_department" placeholder = "Enter building department (optional)."/><br>
+    <input type = text id = "building_address" placeholder = "Enter building address."/><br>
+    <input type = text id = "lat" placeholder = "Enter building latitude"/><br>
+    <input type = text id = "lon" placeholder = "Enter building longitude."/><br>
+    <input type = button id = "button1" value = "Enter" onclick = "insertBuilding()"/>
+  </div>
+
+  <div id = "status_div">Please enter building information.</div>
+</body>
+</html>
