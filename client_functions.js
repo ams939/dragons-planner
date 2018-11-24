@@ -38,5 +38,5 @@ function setDiv(building_json) {
   $("#building_code").html(building_json[0].code);
   $("#building_address").html(building_json[0].street_address);
   $("#building_desc").html(building_json[0].description);
-  $("#building_loc").html(building_json[0].lat.toString() + "," + building_json[0].lon.toString());
+  $("#building_loc").html(JSON.parse(building_json[0].coordinates).lat.toString() + "," + JSON.parse(building_json[0].coordinates).lon.toString());
 }

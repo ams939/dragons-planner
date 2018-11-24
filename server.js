@@ -1,12 +1,16 @@
 
 var express = require('express');
 var fs = require('fs');
+
 var app = express();
 var request = require('request');
+var bodyParser = require('body-parser');
 var databaseFunctions = require('./dbquery.js');
 var queryBuilder = require('./queryBuilder.js');
 var database = new databaseFunctions.Database();
 var connection = databaseFunctions.connectDB();
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 
 // Check that connection to DB could be made.
 if (connection != null) {
