@@ -20,8 +20,18 @@ function getBuilding () {
       dataType : "json",
       success : function(msg) {
         var building_json = msg;
-        // Populate div in html code with result from server
-        setDiv(building_json);
+        if (msg.success) {
+          if (msg.result.length == 0) {
+            $("#status_div").html("No buildings found for code " + building_code + "<br><br>");
+          } else {
+            // Populate div in html code with result from server
+            setDiv(msg.result);
+          }
+        } else {
+          setStatusDiv("An error occurred:<br>" + JSON.stringify(msg));
+        }
+
+
       },
       error : function(jqXHR, textStatus, errorThrown) {
         $("#status_div").html("Server could not be reached!");
@@ -80,6 +90,9 @@ function insertBuilding() {
       success : function(msg) {
         if (msg.success) {
           setStatusDiv("Successfully added.");
+
+          // Clear input boxes to make them ready for further input
+          $(":text").val("");
         } else {
           // Error # 1062 signifies duplicate entry for unique field
           if (msg.error.errno == 1062) {

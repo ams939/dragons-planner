@@ -37,17 +37,7 @@ app.get('/getBuilding', function(req, resp) {
   var query = queryBuilder.buildingInfo(buildingCode);
 
   database.once('records', function(msg) {
-    var building_info_json = [];
-
-      if (msg.success) {
-        //console.log(msg);
-        building_info_json = msg['result'];
-
-      } else {
-        console.log(msg.error);
-        building_info_json = ['Error'];
-      }
-      resp.json(building_info_json);
+      resp.json(msg);
       resp.end();
   });
 
