@@ -1,0 +1,45 @@
+<html>
+<head>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="./client_functions.js" type="text/javascript"></script>
+
+  <title>
+      Location suggestion page
+  </title>
+</head>
+<body>
+  <div>
+    <h2>Suggest new location</h2>
+  </div>
+  <a href = "./index.html" target = "_self">Building finder</a><br><br>
+  <div>
+    <input type = text id = "name" placeholder = "Enter location name."/><br>
+    <input type = text id = "description" placeholder = "Enter location description."/><br>
+
+    <!-- Drop down options menu with location type options -->
+    <select required id="types">
+      <option value="default" selected disabled hidden>Choose location type</option>
+      <option value="Drexel service">Drexel service</option>
+      <option value="Student organization">Student organization</option>
+      <option value="Store">Store</option>
+      <option value="Restaurant">Restaurant</option>
+      <option value="Attraction">Attraction</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <!-- Placeholders, location will be extracted from user given marker-->
+    <br><br>PLACEHOLDER
+    <input type = text id = "lat" placeholder = "Enter building latitude"/><br>
+    PLACEHOLDER
+    <input type = text id = "lon" placeholder = "Enter building longitude."/><br>
+
+    <!-- Prompt user for image-->
+    <input type="file" id="location_img" accept="image/png, image/jpeg"/><br>
+
+    <input type = button id = "button1" value = "Enter" onclick = "insertLocation()"/>
+  </div>
+
+  <div id = "status_div">Please enter location information.</div>
+</body>
+</html>

@@ -63,7 +63,71 @@ app.post('/insertBuilding', function(req, resp) {
   // Build query for getting building info & coordinate info
   var query = queryBuilder.insertBuildingInfo(building_info);
 
+  //Send results to client
+  database.once('records', function(msg) {
+      resp.json(msg);
+      resp.end();
+  });
 
+  database.getRecords(query);
+
+
+});
+
+// Function for returning locations of specific type from database in JSON format
+app.get('/getLocationsByType', function(req, resp) {
+  console.log(req.url);
+  var queryString = req.query;
+  var type = queryString.type;
+
+  // Build query for getting location info
+  var query = queryBuilder.locationInfoByType(type);
+
+  database.once('records', function(msg) {
+      resp.json(msg);
+      resp.end();
+  });
+
+  database.getRecords(query);
+
+
+});
+
+// Function for returning all locations from database in JSON format
+app.get('/getAllLocations', function(req, resp) {
+  console.log(req.url);
+
+  // Build query
+  var query = queryBuilder.locationInfo();
+
+  database.once('records', function(msg) {
+      resp.json(msg);
+      resp.end();
+  });
+
+  database.getRecords(query);
+
+
+});
+
+// Function for returning location information from database in JSON format
+app.post('/insertLocation', function(req, resp) {
+  console.log(req.url);
+  var location_info = req.body;
+
+  // Prevent SQL injections
+  for (var key of Object.keys(location_info)) {
+    if (key === 'lat' || key === 'lon') {
+      continue;
+    } else {
+      location_info[key] = connection.escape(location_info[key]);
+    }
+  }
+
+  // Build query for getting building info & coordinate info
+  var query = queryBuilder.insertLocationInfo(location_info);
+
+  // Send results to client
   database.once('records', function(msg) {
       resp.json(msg);
       resp.end();

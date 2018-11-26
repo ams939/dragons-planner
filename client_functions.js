@@ -39,6 +39,7 @@ function getBuilding () {
     });
 }
 
+// Function for inserting a building into the database
 function insertBuilding() {
     // Extract building info from HTML text input box
     var code = $("#building_code").val().toUpperCase();
@@ -108,6 +109,79 @@ function insertBuilding() {
 
 
       },
+      error : function(jqXHR, textStatus, errorThrown) {
+        $("#status_div").html("Server could not be reached!");
+      }
+    });
+}
+
+
+// Function for inserting a location into the database
+function insertLocation() {
+    // Extract location info from HTML text input box
+    var loc_name = $("#name").val();
+    var desc = $("#description").val();
+
+    var loc_type = $("#types :selected").val();
+
+    // Make sure user has selected location type
+    if (loc_type === "default") {
+      setStatusDiv("Please select type!");
+      return;
+    }
+
+    // TODO Change these to extract value from user placed marker
+    var lat = $("#lat").val();
+    var lon = $("#lon").val();
+
+    lat = parseFloat(lat);
+    lon = parseFloat(lon);
+
+    if (isNaN(lat) || isNaN(lon)) {
+      $("#status_div").html("Invalid coordinates!");
+      return;
+    }
+
+    if (lon < -75.25 || lon > 75.03) {
+      $("#status_div").html("Invalid longitude!");
+      return;
+    }
+
+    if (lat > 40.03 || lat < 39.90 ) {
+      $("#status_div").html("Invalid longitude!");
+      return;
+    }
+
+    // Create json for post body
+    var location_info = {
+        'loc_name':loc_name,
+        'description':desc,
+        'loc_type': loc_type,
+        'lat': lat,
+        'lon':lon
+    };
+
+    // Local server endpoint
+    var reqUrl = "http://localhost:8080/insertLocation";
+
+
+    // Make Ajax query to local server to get building info as JSON
+    $.ajax({
+      type : "POST",
+      url : reqUrl,
+      data : location_info,
+      dataType : "json",
+      success : function(msg) {
+        if (msg.success) {
+          setStatusDiv("Successfully added.");
+
+          // Clear input boxes to make them ready for further input
+          $(":text").val("");
+        } else {
+            setStatusDiv("An error occurred:<br>" + JSON.stringify(msg['error']));
+          }
+
+        },
       error : function(jqXHR, textStatus, errorThrown) {
         $("#status_div").html("Server could not be reached!");
       }

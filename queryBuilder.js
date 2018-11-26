@@ -40,3 +40,42 @@ exports.insertBuildingInfo = function(building_json) {
   return query
 
 }
+
+
+// Function for building query to get location info by type
+exports.locationInfoByType = function(location_type) {
+    var location_table = 'locations';
+
+    var query = `
+      SELECT * FROM ` + location_table + ` WHERE type='` + location_type + `'`;
+
+    return query;
+}
+
+// Function for building query to get all location info
+exports.locationInfo = function() {
+    var location_table = 'locations';
+
+    var query = `
+      SELECT * FROM ` + location_table;
+
+    return query;
+}
+
+// Insert location information into table
+exports.insertLocationInfo = function(location_json) {
+  var location_table = 'locations';
+
+  var query = `
+  INSERT INTO ` + location_table + ` (name, description, type, lat, lon)`
+  + ` VALUES (`
+  + location_json.loc_name + `,`
+  + location_json.description + `,`
+  + location_json.loc_type + `,`
+  + location_json.lat.toString() + `,`
+  + location_json.lon.toString()
+  + `)`
+
+  return query
+
+}
