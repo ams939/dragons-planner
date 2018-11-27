@@ -1,5 +1,23 @@
 // Clientside javascript functions
 
+window.onload = getUserLocation;
+
+// Function that gets user's lon and lat if they allow geolocation
+function getUserLocation() {
+     navigator.geolocation.getCurrentPosition(
+       // If user accepts geolocation request, this function is executed
+       function(position){
+         // Add user location as marker on map
+         plotUserLoc(position.coords.latitude,position.coords.longitude);
+     },
+     // If user rejects geolocation, this function is executed
+     function() {
+       // Default to main building
+        plotUserLoc(39.954011, -75.186924);
+     });
+  }
+
+
 // Querying local server for building info
 function getBuilding () {
 
@@ -22,10 +40,16 @@ function getBuilding () {
         var building_json = msg;
         if (msg.success) {
           if (msg.result.length == 0) {
-            $("#status_div").html("No buildings found for code " + building_code + "<br><br>");
+            setStatusDiv("No buildings found for code " + building_code + "<br><br>");
           } else {
+            // Extract building information
+            var building_info = msg.result[0];
+
             // Populate div in html code with result from server
-            setDiv(msg.result);
+            setBuildingInfoDiv(building_info);
+
+            // Plot marker onto map with building coords
+            plotBuilding(building_info.lat, building_info.lon);
           }
         } else {
           setStatusDiv("An error occurred:<br>" + JSON.stringify(msg));
@@ -34,7 +58,7 @@ function getBuilding () {
 
       },
       error : function(jqXHR, textStatus, errorThrown) {
-        $("#status_div").html("Server could not be reached!");
+        setStatusDiv("Server could not be reached!");
       }
     });
 }
@@ -192,13 +216,11 @@ function setStatusDiv(status) {
   $("#status_div").html(status);
 }
 
-// Function for setting building info in page html
-function setDiv(building_json) {
+function setBuildingInfoDiv(building_json) {
   // Set HTML in test page
   setStatusDiv("Building info:");
-  $("#building_name").html(building_json[0].name);
-  $("#building_code").html(building_json[0].code);
-  $("#building_address").html(building_json[0].street_address);
-  $("#building_desc").html(building_json[0].description);
-  $("#building_loc").html(building_json[0].lat.toString() + "," + building_json[0].lon.toString());
+  $("#building_name").html(building_json.name);
+  $("#building_code").html(building_json.code);
+  $("#building_address").html(building_json.street_address);
+  $("#building_desc").html(building_json.description);
 }

@@ -1,0 +1,3 @@
+Image files from Leaflet GitHub:
+Red marker image adapted from Leaflet github file https://github.com/Leaflet/Leaflet/blob/master/dist/images/marker-icon.png
+Marker shadow image file retrieved from https://github.com/Leaflet/Leaflet/blob/master/dist/images/marker-shadow.png
