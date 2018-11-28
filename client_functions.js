@@ -1,7 +1,5 @@
 // Clientside javascript functions
 
-window.onload = getUserLocation;
-
 // Function that gets user's lon and lat if they allow geolocation
 function getUserLocation() {
      navigator.geolocation.getCurrentPosition(
@@ -71,6 +69,7 @@ function insertBuilding() {
     var desc = $("#building_desc").val();
     var department = $("#building_department").val();
     var address = $("#building_address").val();
+    var image_url = $("#building_image").val();
     var lat = $("#lat").val();
     var lon = $("#lon").val();
 
@@ -99,6 +98,7 @@ function insertBuilding() {
         'description':desc,
         'department': department,
         'street_address': address,
+        'image_url':image_url,
         'lat': lat,
         'lon':lon
     };
@@ -145,6 +145,7 @@ function insertLocation() {
     // Extract location info from HTML text input box
     var loc_name = $("#name").val();
     var desc = $("#description").val();
+    var image_url = $("#location_image").val();
 
     var loc_type = $("#types :selected").val();
 
@@ -154,18 +155,25 @@ function insertLocation() {
       return;
     }
 
-    // TODO Change these to extract value from user placed marker
-    var lat = $("#lat").val();
-    var lon = $("#lon").val();
+    // Get the location of the marker user has placed
+    var coords = getUserMarkerLoc();
 
-    lat = parseFloat(lat);
-    lon = parseFloat(lon);
+    // Check that user has chosen location on map
+    if (coords == null) {
+      setStatusDiv("Please select a location on the map!");
+      return;
+    }
+
+    var lat = coords.lat;
+    var lon = coords.lon;
+
 
     if (isNaN(lat) || isNaN(lon)) {
       $("#status_div").html("Invalid coordinates!");
       return;
     }
 
+    // Check that marker is in Philly area
     if (lon < -75.25 || lon > 75.03) {
       $("#status_div").html("Invalid longitude!");
       return;
@@ -181,6 +189,7 @@ function insertLocation() {
         'loc_name':loc_name,
         'description':desc,
         'loc_type': loc_type,
+        'image_url': image_url,
         'lat': lat,
         'lon':lon
     };
@@ -223,4 +232,5 @@ function setBuildingInfoDiv(building_json) {
   $("#building_code").html(building_json.code);
   $("#building_address").html(building_json.street_address);
   $("#building_desc").html(building_json.description);
+  $("#image_div").html("<img src='" + building_json.image_url + "'>");
 }

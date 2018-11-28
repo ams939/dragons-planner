@@ -6,6 +6,7 @@ var mymap = L.map('mapid').setView([39.9539588, -75.1946844], 15);
 var building_markers = L.markerClusterGroup();
 var location_markers = L.markerClusterGroup();
 var user_markers = L.markerClusterGroup();
+var suggested_markers = L.markerClusterGroup();
 var route = null;
 
 // Make red marker
@@ -33,16 +34,36 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 // Create marker where user clicks
 function onMapClick(e) {
     // Remove previous marker
-    location_markers.clearLayers();
+    suggested_markers.clearLayers();
 
     // Create marker at click location
     marker = L.marker(e.latlng);
 
     // Add marker to marker list
-    location_markers.addLayer(marker);
+    suggested_markers.addLayer(marker);
 
     // Add marker to map
-    location_markers.addTo(mymap);
+    suggested_markers.addTo(mymap);
+}
+
+// Get location of marker user has placed on map
+function getUserMarkerLoc() {
+  var coords = [];
+
+  suggested_markers.eachLayer(function (marker) {
+    coords.push(marker.getLatLng());
+  });
+
+  if (coords.length == 0) {
+    return null;
+  }
+
+  var marker_loc = {
+    'lat':coords[0].lat,
+    'lon':coords[0].lng
+  };
+
+  return marker_loc;
 }
 
 // Plot user location

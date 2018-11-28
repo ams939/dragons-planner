@@ -33,9 +33,10 @@ CREATE TABLE `buildings` (
   `street_address` text,
   `lat` float DEFAULT '39.956',
   `lon` float DEFAULT '-75.19',
+  `image_url` text,
   PRIMARY KEY (`building_id`),
   UNIQUE KEY `code_UNIQUE` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +45,7 @@ CREATE TABLE `buildings` (
 
 LOCK TABLES `buildings` WRITE;
 /*!40000 ALTER TABLE `buildings` DISABLE KEYS */;
-INSERT INTO `buildings` VALUES (1,'UCROSS','University Crossings','The building houses a student computer lab (featuring workstations and laptop plug-in stations, arranged in pods, to encourage collaboration among CCI students), as well as several classrooms with video-conference enabled technology and media projection capabilities. Its Cyber Learning Center provides consulting and other learning resources for students taking computer science classes within the College. University Crossings is also home to several of the College’s research groups and laboratories.','College of Computing and Informatics','15 N. 32nd Street',39.956,-75.19),(7,'ACADMC','Academic Building','Built in 1988','Administration','101 N 33rd St',39.9579,-75.1889),(8,'CURTIS','Curtis Hall','General classroom building, connected to the main building.','College of Engineering','3101 Chestnut St',39.954,-75.1882),(9,'DISQUE','Disque Hall','Large lecture halls on first floor','College of Arts & Sciences','32 S 32nd St',39.9545,-75.1877);
+INSERT INTO `buildings` VALUES (7,'ACADMC','Academic Building','Built in 1988','Administration','101 N 33rd St',39.9579,-75.1889,'https://sites.google.com/site/duacademicbuilding/_/rsrc/1322512708513/home/pic.PNG'),(8,'CURTIS','Curtis Hall','General classroom building, connected to the main building.','College of Engineering','3101 Chestnut St',39.954,-75.1882,'https://upload.wikimedia.org/wikipedia/commons/7/7f/Curtis_Hall_-_Drexel_University_-_IMG_7265.JPG'),(9,'DISQUE','Disque Hall','Large lecture halls on first floor','College of Arts & Sciences','32 S 32nd St',39.9545,-75.1877,'https://c1.staticflickr.com/4/3906/14522152579_4727c7a39d_b.jpg'),(10,'UCROSS','University Crossings','\"CCI has on campus classrooms, administrative offices and faculty offices at University Crossings 100, located at the corner of JFK and Market Streets. The building houses a student computer lab (featuring workstations and laptop plug-in stations, arranged in pods, to encourage collaboration among CCI students), as well as several classrooms with video-conference enabled technology and media projection capabilities. Its Cyber Learning Center provides consulting and other learning resources for students taking computer science classes within the College. University Crossings is also home to several of the College’s research groups and laboratories.\" -Drexel University Website (https://drexel.edu/cci/about/our-facilities/university-crossings/)','College of Computing and Informatics','15 N. 32nd Street',39.9563,-75.1876,'https://www.americancampus.com/assets/385-universitycrossings/gallery/galleryslider/01-385-01-exterior-gallery7-gallery.jpg');
 /*!40000 ALTER TABLE `buildings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,6 +63,7 @@ CREATE TABLE `locations` (
   `type` text,
   `lat` float NOT NULL DEFAULT '39.956',
   `lon` float NOT NULL DEFAULT '-75.1878',
+  `image_url` text,
   PRIMARY KEY (`location_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -72,7 +74,7 @@ CREATE TABLE `locations` (
 
 LOCK TABLES `locations` WRITE;
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
-INSERT INTO `locations` VALUES (1,'Penn Museum','A museum in University City','Attraction',39.9502,-75.1989);
+INSERT INTO `locations` VALUES (1,'Penn Museum','A museum in University City','Attraction',39.9502,-75.1989,'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Penn_Museum%27s_Warden_Garden_and_Main_Entrance%2C_Summer_2012.jpg/1200px-Penn_Museum%27s_Warden_Garden_and_Main_Entrance%2C_Summer_2012.jpg');
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -85,4 +87,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-25 20:01:36
+-- Dump completed on 2018-11-27 22:28:13

@@ -26,13 +26,14 @@ exports.insertBuildingInfo = function(building_json) {
   var building_table = 'buildings';
 
   var query = `
-  INSERT INTO ` + building_table + ` (code, name, description, department, street_address, lat, lon)`
+  INSERT INTO ` + building_table + ` (code, name, description, department, street_address, image_url, lat, lon)`
   + ` VALUES (`
   + building_json.code + `,`
   + building_json.name + `,`
   + building_json.description + `,`
   + building_json.department + `,`
   + building_json.street_address + `,`
+  + building_json.image_url + `,`
   + building_json.lat.toString() + `,`
   + building_json.lon.toString()
   + `)`
@@ -67,11 +68,12 @@ exports.insertLocationInfo = function(location_json) {
   var location_table = 'locations';
 
   var query = `
-  INSERT INTO ` + location_table + ` (name, description, type, lat, lon)`
+  INSERT INTO ` + location_table + ` (name, description, type, image_url, lat, lon)`
   + ` VALUES (`
   + location_json.loc_name + `,`
   + location_json.description + `,`
   + location_json.loc_type + `,`
+  + location_json.image_url + `,`
   + location_json.lat.toString() + `,`
   + location_json.lon.toString()
   + `)`
