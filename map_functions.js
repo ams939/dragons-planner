@@ -1,3 +1,5 @@
+// Import marker style variables
+$.getScript("./markers.js");
 
 // Initializing Leaflet map, centered on University Crossings building with zoom 15
 var mymap = L.map('mapid').setView([39.9539588, -75.1946844], 15);
@@ -8,17 +10,6 @@ var location_markers = L.markerClusterGroup();
 var user_markers = L.markerClusterGroup();
 var suggested_markers = L.markerClusterGroup();
 var route = null;
-
-// Make red marker
-var redMarker = L.icon({
-    iconUrl: './img/redmarker.png',
-    iconSize:    [25, 41],
-		iconAnchor:  [12, 41],
-		popupAnchor: [1, -34],
-    shadowUrl: './img/markershadow.png',
-    shadowSize:  [41, 41],
-    shadowAnchor: [12, 41]
-});
 
 // Initializing map tiles
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {

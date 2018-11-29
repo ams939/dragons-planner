@@ -34,7 +34,7 @@
    </style>
 
   <title>
-      Location suggestion page
+      Drexel Points of Interest
   </title>
 </head>
 <body>
@@ -44,26 +44,7 @@
   <a href = "./buildingFinder.html" target = "_self">Building finder</a><br><br>
   <div>
     <div id="mapid"></div><br>
-    <div id = "status_div">Please enter location information.</div>
-    <input type = text id = "name" placeholder = "Enter location name."/><br>
-    <input type = text id = "description" placeholder = "Enter location description."/><br>
 
-    <!-- Drop down options menu with location type options -->
-    <select required id="types">
-      <option value="default" selected disabled hidden>Choose location type</option>
-      <option value="Drexel service">Drexel service</option>
-      <option value="Student organization">Student organization</option>
-      <option value="Store">Store</option>
-      <option value="Restaurant">Restaurant</option>
-      <option value="Attraction">Attraction</option>
-      <option value="Other">Other</option>
-    </select>
-
-    <!-- Prompt user for image-->
-    <br><input type= text id = "location_image" placeholder = "Enter URL address of image for location."/><br>
-
-    <input type = button id = "button1" value = "Enter" onclick = "insertLocation()"/>
-  </div>
 
 
   <!-- Scripts that initialize map and provide marker functionalities -->

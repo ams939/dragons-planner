@@ -36,7 +36,13 @@
 
 </head>
 <body onload="getUserLocation()">
-  <div><h2>Building Finder</h2></div>
+  <div><h2>Building Finder</h2>
+  <!-- Placeholder navbar -->
+  <a href = "./suggestLocation.html" target = "_self">Suggest a Location</a>
+  <a href = "./locations.html" target = "_self">View Campus Points of Interest</a>
+  </div>
+
+  <br><br>
   <input type = text id = "buildingcode" placeholder = "Enter building code."/>
   <input type = button id = "button1" value = "Enter" onclick = "getBuilding()"/>
   <input type = button id = "button1" value = "Get Route" onclick = "addRoute()"/>
