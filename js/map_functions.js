@@ -1,5 +1,5 @@
 // Import marker style variables
-$.getScript("./markers.js");
+$.getScript("../js/markers.js");
 
 // Initializing Leaflet map, centered on University Crossings building with zoom 15
 var mymap = L.map('mapid').setView([39.9539588, -75.1946844], 15);
