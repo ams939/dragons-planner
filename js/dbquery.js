@@ -71,3 +71,31 @@ class Database extends EventEmitter {
 }
 
 exports.Database = Database;
+
+class Database2 extends EventEmitter {
+  constructor() {
+    super();
+  }
+
+  getRecords(query) {
+    var self = this;
+    var connection = exports.connectDB();
+    var query_result = {};
+    connection.query(query, function(err,rows,fields) {
+      if (err) {
+        query_result['success'] = false;
+        query_result['result'] = rows;
+        query_result['error'] = err;
+        self.emit('records2', query_result);
+      } else {
+        query_result['success'] = true;
+        query_result['result'] = rows;
+        query_result['error'] = null;
+        self.emit('records2', query_result);
+      }
+    });
+  }
+
+}
+
+exports.Database2 = Database2;

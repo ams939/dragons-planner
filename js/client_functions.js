@@ -221,6 +221,75 @@ function insertLocation() {
     });
 }
 
+function getAllLocations() {
+  var locations_json;
+
+  // Local server endpoint
+  var reqUrl = "http://localhost:8080/getAllLocations";
+
+  // Make Ajax query to local server to get location info as JSON
+  $.ajax({
+    type : "GET",
+    url : reqUrl,
+    dataType : "json",
+    success : function(msg) {
+      if (msg.success) {
+        locations_json = msg.result;
+        createLocationMarkers(locations_json);
+      } else {
+        return null;
+        }
+
+      },
+    error : function(jqXHR, textStatus, errorThrown) {
+      return null;
+    }
+  });
+
+
+}
+
+function getAllBuildings() {
+  var buildings_json;
+
+  // Local server endpoint
+  var reqUrl = "http://localhost:8080/getAllBuildings";
+
+
+  // Make Ajax query to local server to get building info as JSON
+  $.ajax({
+    type : "GET",
+    url : reqUrl,
+    dataType : "json",
+    success : function(msg) {
+      if (msg.success) {
+        buildings_json = msg.result;
+        createBuildingMarkers(buildings_json);
+      } else {
+        return null;
+        }
+
+      },
+    error : function(jqXHR, textStatus, errorThrown) {
+      return null;
+    }
+  });
+
+}
+
+function getAllMarkers() {
+  getAllLocations();
+  getAllBuildings();
+  location_markers.addTo(mymap);
+
+}
+
+function getTypeMarkers() {
+  var loc_type = $("#types :selected").val();
+  showMarkerType(loc_type);
+}
+
+
 function setStatusDiv(status) {
   $("#status_div").html(status);
 }

@@ -11,6 +11,16 @@ exports.buildingInfo = function(building_code) {
     return query;
 }
 
+// Function for building query to get all location info
+exports.allBuildingInfo = function() {
+    var building_table = 'buildings';
+
+    var query = `
+      SELECT * FROM ` + building_table;
+
+    return query;
+}
+
 // Function for building query that returns coordinates for building
 exports.buildingCoords = function(building_code) {
   var building_table = 'buildings';

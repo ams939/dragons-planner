@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var databaseFunctions = require('./js/dbquery.js');
 var queryBuilder = require('./js/queryBuilder.js');
 var database = new databaseFunctions.Database();
+var database2 = new databaseFunctions.Database2();
 var connection = databaseFunctions.connectDB();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -42,6 +43,23 @@ app.get('/getBuilding', function(req, resp) {
   });
 
   database.getRecords(query);
+
+
+});
+
+// Function for returning ALL building information from database in JSON format
+app.get('/getAllBuildings', function(req, resp) {
+  console.log(req.url);
+
+  // Build query for getting all building info & coordinate info
+  var query = queryBuilder.allBuildingInfo();
+
+  database2.once('records2', function(msg) {
+      resp.json(msg);
+      resp.end();
+  });
+
+  database2.getRecords(query);
 
 
 });

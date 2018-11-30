@@ -5,10 +5,10 @@ $.getScript("../js/markers.js");
 var mymap = L.map('mapid').setView([39.9539588, -75.1946844], 15);
 
 // Marker clusters for storing map markers
-var building_markers = L.markerClusterGroup();
-var location_markers = L.markerClusterGroup();
-var user_markers = L.markerClusterGroup();
-var suggested_markers = L.markerClusterGroup();
+var building_markers = L.markerClusterGroup({disableClusteringAtZoom:1});
+var location_markers = L.markerClusterGroup({disableClusteringAtZoom:1});
+var user_markers = L.markerClusterGroup({disableClusteringAtZoom:1});
+var suggested_markers = L.markerClusterGroup({disableClusteringAtZoom:1});
 var route = null;
 
 // Initializing map tiles
@@ -63,7 +63,7 @@ function plotUserLoc(lat, lon) {
   user_markers.clearLayers();
 
   // Create marker at user location
-  marker = L.marker([lat, lon], {icon: redMarker});
+  marker = L.marker([lat, lon], {icon: hereMarker});
   marker.bindPopup("<b>You are here.</b>").openPopup();
 
   // Add marker to marker list
@@ -89,6 +89,9 @@ function plotBuilding(lat, lon) {
 
     // Add marker to map
     building_markers.addTo(mymap);
+
+    // Pan map to building location
+    mymap.setView(marker.getLatLng(),15);
 }
 
 // Function for adding a pedestrian route between two points
@@ -128,6 +131,72 @@ function removeRoute() {
     mymap.removeControl(route);
     route = null;
   }
+}
+
+function createBuildingMarkers(buildings_json) {
+
+  for (var i = 0; i < buildings_json.length; i++) {
+    var latLon = [buildings_json[i].lat, buildings_json[i].lon];
+    var marker = L.marker(latLon, {icon: blueMarker});
+
+    // Store rest of building data within marker
+    marker.location_data = buildings_json[i];
+    marker.on('click', onMarkerClick);
+
+    // Display name of building in popup when marker clicked
+    marker.bindPopup(buildings_json[i].name).openPopup();
+
+    blueMarkerGroup.push(marker);
+  }
+
+  location_markers.addLayers(blueMarkerGroup);
+
+}
+
+
+// Create location markers from data queried from database
+//NOTE: "types" is defined in "markers.js" and relates marker color to each type
+function createLocationMarkers(locations_json) {
+
+  for (var i = 0; i < locations_json.length; i++) {
+    var latLon = [locations_json[i].lat, locations_json[i].lon];
+    var type = locations_json[i].type;
+    var marker = L.marker(latLon, {icon: types[type][0]});
+
+    // Store rest of building data within marker
+    marker.location_data = locations_json[i];
+    marker.on('click', onMarkerClick);
+
+    // Display name of building in popup when marker clicked
+    marker.bindPopup(locations_json[i].name).openPopup();
+
+    types[type][1].push(marker);
+    location_markers.addLayer(marker);
+  }
+
+}
+
+// Display a given marker type on the map
+function showMarkerType(type) {
+  // Clear previous markers from map
+  location_markers.clearLayers();
+
+  if (type === "All") {
+    for (var key in types) {
+      location_markers.addLayers(types[key][1]);
+      location_markers.addLayers(blueMarkerGroup);
+    }
+  } else if (type === "Buildings"){
+    location_markers.addLayers(blueMarkerGroup);
+  } else {
+    location_markers.addLayers(types[type][1]);
+  }
+
+
+}
+
+function onMarkerClick(e) {
+  alert(JSON.stringify(e.target.location_data));
 }
 
 // Click event handler

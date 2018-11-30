@@ -37,12 +37,25 @@
       Drexel Points of Interest
   </title>
 </head>
-<body>
+<body onload="getAllMarkers()">
   <div>
-    <h2>Suggest new location</h2>
+    <h2>View Locations</h2>
   </div>
   <a href = "./buildingFinder.html" target = "_self">Building finder</a><br><br>
   <div>
+    <input type = button id = "button2" value = "Enter" onclick = "showAttractions()"/>
+    <!-- Drop down options menu with location type options -->
+    <select required id="types" onchange="getTypeMarkers()">
+      <option value="default" selected disabled hidden>Choose location type</option>
+      <option value="All">Show all</option>
+      <option value="Buildings">Drexel Buildings</option>
+      <option value="Drexel service">Drexel service</option>
+      <option value="Student organization">Student organization</option>
+      <option value="Store">Store</option>
+      <option value="Restaurant">Restaurant</option>
+      <option value="Attraction">Attraction</option>
+      <option value="Other">Other</option>
+    </select>
     <div id="mapid"></div><br>
 
 
