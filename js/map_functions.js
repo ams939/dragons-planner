@@ -9,6 +9,7 @@ var building_markers = L.markerClusterGroup({disableClusteringAtZoom:1});
 var location_markers = L.markerClusterGroup({disableClusteringAtZoom:1});
 var user_markers = L.markerClusterGroup({disableClusteringAtZoom:1});
 var suggested_markers = L.markerClusterGroup({disableClusteringAtZoom:1});
+var selected_marker = L.markerClusterGroup({disableClusteringAtZoom:1});
 var route = null;
 
 // Initializing map tiles
@@ -125,6 +126,41 @@ function addRoute() {
 route.addTo(mymap);
 }
 
+// Function for adding a pedestrian route between two points
+function addLocationRoute() {
+  //Remove any previous routes
+  removeRoute();
+
+  var coords = [];
+  selected_marker.eachLayer(function (marker) {
+    coords.push(marker.getLatLng());
+
+  });
+
+  user_markers.eachLayer(function (marker) {
+    coords.push(marker.getLatLng());
+  });
+
+  // Check that there are at least 2 points
+  if (coords.length < 2) {
+    alert("Please select a marker first.");
+    return;
+  }
+
+  // Create routing
+  route = L.Routing.control({
+    waypoints: coords,
+    router: L.Routing.graphHopper( '19392239-126a-4aad-a90d-0c2dd45820e7' , {
+        urlParameters: {
+          vehicle: 'foot'
+        }
+    }),
+    routeWhileDragging: true,
+    createMarker: function() { return null; }
+})
+route.addTo(mymap);
+}
+
 // Function for removing route on map
 function removeRoute() {
   if (route != null) {
@@ -180,6 +216,16 @@ function createLocationMarkers(locations_json) {
 function showMarkerType(type) {
   // Clear previous markers from map
   location_markers.clearLayers();
+  selected_marker.clearLayers();
+
+  //Remove any previous routes
+  removeRoute();
+
+  // Clear location information divs
+  clearLocationInfoDiv();
+
+  // Pan map to default view
+  mymap.setView([39.9539588, -75.1946844],15);
 
   if (type === "All") {
     for (var key in types) {
@@ -196,6 +242,8 @@ function showMarkerType(type) {
 }
 
 function onMarkerClick(e) {
+  selected_marker.clearLayers();
+  selected_marker.addLayer(e.target);
   setLocationInfoDiv(e.target.location_data);
 }
 

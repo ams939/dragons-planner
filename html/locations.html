@@ -44,9 +44,11 @@
 </head>
 <body onload="getAllMarkers()">
   <div>
+    <img src="../img/logo.png" height="120" width="100" align="left">
     <h2>View Locations</h2>
   </div>
-  <a href = "./buildingFinder.html" target = "_self">Building finder</a><br><br>
+  <a href = "./buildingFinder.html" target = "_self">Building finder</a>
+  <a href = "./suggestLocation.html" target = "_self">Suggest a Location</a><br><br>
   <div>
     <!-- Drop down options menu with location type options -->
     <select required id="types" onchange="getTypeMarkers()">
@@ -60,6 +62,8 @@
       <option value="Attraction">Attraction</option>
       <option value="Other">Other</option>
     </select>
+
+    <input type = button id = "button3" value = "Get Route" onclick = "addLocationRoute()"/>
 
     <!-- The map -->
     <div id="mapid"></div><br>

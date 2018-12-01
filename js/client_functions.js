@@ -278,6 +278,7 @@ function getAllBuildings() {
 }
 
 function getAllMarkers() {
+  getUserLocation();
   getAllLocations();
   getAllBuildings();
   location_markers.addTo(mymap);
@@ -300,6 +301,13 @@ function setLocationInfoDiv(location_json) {
   $("#location_name").html(location_json.name);
   $("#location_desc").html(location_json.description);
   $("#image_div").html("<img src='" + location_json.image_url + "'>");
+}
+
+function clearLocationInfoDiv() {
+  setStatusDiv("Please click a marker to see additional information on location.");
+  $("#location_name").html("");
+  $("#location_desc").html("");
+  $("#image_div").html("");
 }
 
 // Function for populating status div
