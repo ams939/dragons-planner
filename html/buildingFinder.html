@@ -32,6 +32,11 @@
 
    <style>
      #mapid { height: 600px; }
+
+     img {
+     max-width:750px;
+     max-height:600px;
+     }
    </style>
 
 </head>
@@ -47,7 +52,11 @@
   <input type = button id = "button1" value = "Enter" onclick = "getBuilding()"/>
   <input type = button id = "button1" value = "Get Route" onclick = "addRoute()"/>
   <br><br>
+
+  <!-- The map -->
   <div id="mapid"></div><br>
+
+  <!-- Building information div's to be populated -->
   <div><h2>Building Data</h2></div>
   <div id = "status_div">Please enter building code.</div>
 

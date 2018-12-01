@@ -290,10 +290,24 @@ function getTypeMarkers() {
 }
 
 
+//------------------------------------------------------------------------------
+// Functions for populating divs on client pages
+//------------------------------------------------------------------------------
+
+//Function for populating divs on locations.html page with data in marker json
+function setLocationInfoDiv(location_json) {
+  setStatusDiv("");
+  $("#location_name").html(location_json.name);
+  $("#location_desc").html(location_json.description);
+  $("#image_div").html("<img src='" + location_json.image_url + "'>");
+}
+
+// Function for populating status div
 function setStatusDiv(status) {
   $("#status_div").html(status);
 }
 
+// Function for populating building information divs in buildingFinder.html page
 function setBuildingInfoDiv(building_json) {
   // Set HTML in test page
   setStatusDiv("Building info:");

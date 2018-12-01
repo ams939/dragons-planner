@@ -31,6 +31,11 @@
 
    <style>
      #mapid { height: 600px; }
+
+    img {
+    max-width:750px;
+    max-height:600px;
+    }
    </style>
 
   <title>
@@ -43,10 +48,9 @@
   </div>
   <a href = "./buildingFinder.html" target = "_self">Building finder</a><br><br>
   <div>
-    <input type = button id = "button2" value = "Enter" onclick = "showAttractions()"/>
     <!-- Drop down options menu with location type options -->
     <select required id="types" onchange="getTypeMarkers()">
-      <option value="default" selected disabled hidden>Choose location type</option>
+      <option value="default" selected disabled hidden>Filter locations</option>
       <option value="All">Show all</option>
       <option value="Buildings">Drexel Buildings</option>
       <option value="Drexel service">Drexel service</option>
@@ -56,11 +60,26 @@
       <option value="Attraction">Attraction</option>
       <option value="Other">Other</option>
     </select>
+
+    <!-- The map -->
     <div id="mapid"></div><br>
+    <!-- Scripts that initialize map and provide marker functionalities -->
+    <script src="../js/map_functions.js" type="text/javascript"></script>
 
+    <!-- divs to be populated with location information when a marker is clicked -->
+    <div><h2>Location Information</h2></div>
+    <div id = "status_div">Please click a marker to see additional information on location.</div>
 
+    <div>Name:
+      <p id = "location_name"></p>
+    </div>
 
-  <!-- Scripts that initialize map and provide marker functionalities -->
-  <script src="../js/map_functions.js" type="text/javascript"></script>
+    <div>Description:
+      <p id = "location_desc"></p>
+    </div>
+
+    <!-- Populate with html for showing image -->
+    <div id = image_div></div>
+
 </body>
 </html>

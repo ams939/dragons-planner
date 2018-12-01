@@ -196,7 +196,7 @@ function showMarkerType(type) {
 }
 
 function onMarkerClick(e) {
-  alert(JSON.stringify(e.target.location_data));
+  setLocationInfoDiv(e.target.location_data);
 }
 
 // Click event handler
