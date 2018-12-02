@@ -277,6 +277,54 @@ function getAllBuildings() {
 
 }
 
+
+// Querying local server for location info
+function getLocation () {
+
+    // Extract building code from HTML text input box
+    var location_name = $("#name_input").val();
+
+    // Local server endpoint
+    var reqUrl = "http://localhost:8080/getLocation";
+
+    // Create query string with building code
+    var queryString = {"location_name" : location_name};
+
+    // Make Ajax query to local server to get building info as JSON
+    $.ajax({
+      type : "GET",
+      url : reqUrl,
+      data : queryString,
+      dataType : "json",
+      success : function(msg) {
+        var location_json = msg;
+        if (msg.success) {
+          if (msg.result.length == 0) {
+            setStatusDiv("No locations found for location '" + location_name + "'<br><br>");
+          } else {
+            // Extract building information
+            var location_info = msg.result[0];
+
+            // Populate div in html code with result from server
+            setLocationInfoDiv(location_info);
+
+            // Plot marker onto map with location coords
+            plotLocation(location_info.lat, location_info.lon, location_info.name);
+          }
+        } else {
+          setStatusDiv("An error occurred:<br>" + JSON.stringify(msg));
+        }
+
+
+      },
+      error : function(jqXHR, textStatus, errorThrown) {
+        setStatusDiv("Server could not be reached!");
+      }
+    });
+}
+
+
+
 function getAllMarkers() {
   getUserLocation();
   getAllLocations();

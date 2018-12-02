@@ -63,7 +63,13 @@
       <option value="Other">Other</option>
     </select>
 
+    <!-- Button for getting route -->
     <input type = button id = "button3" value = "Get Route" onclick = "addLocationRoute()"/>
+
+    <!-- Button & text input box for searching locations by name -->
+    <input type = text id = "name_input" placeholder = "Enter location name" style="float:right"/>
+    <input type = button id = "button4" value = "Search location by name" style="float:right" onclick = "getLocation()"/>
+
 
     <!-- The map -->
     <div id="mapid"></div><br>

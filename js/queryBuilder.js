@@ -91,3 +91,13 @@ exports.insertLocationInfo = function(location_json) {
   return query
 
 }
+
+// Query for getting location by name
+exports.locationInfoByName = function(location_name) {
+  var location_table = 'locations';
+
+  var query = `
+  SELECT * FROM ` + location_table + ` WHERE name=` + location_name;
+
+  return query;
+}

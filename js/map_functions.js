@@ -241,6 +241,33 @@ function showMarkerType(type) {
 
 }
 
+function plotLocation(lat, lon, name) {
+  // Clear previous markers from map
+  location_markers.clearLayers();
+  selected_marker.clearLayers();
+
+  //Remove any previous routes
+  removeRoute();
+
+  // Pan map to location
+  mymap.setView([lat, lon],15);
+
+  // Create marker at building location
+  marker = L.marker([lat, lon]);
+
+  marker.bindPopup(name).openPopup();
+
+  // Add marker to marker list
+  location_markers.addLayer(marker);
+  selected_marker.addLayer(marker);
+
+  // Add marker to map
+  location_markers.addTo(mymap);
+
+
+}
+
+
 function onMarkerClick(e) {
   selected_marker.clearLayers();
   selected_marker.addLayer(e.target);

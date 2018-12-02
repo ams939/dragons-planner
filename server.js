@@ -156,6 +156,28 @@ app.post('/insertLocation', function(req, resp) {
 
 });
 
+// Function for returning location information by name from database in JSON format
+app.get('/getLocation', function(req, resp) {
+  console.log(req.url);
+  var queryString = req.query;
+  var location_name = queryString.location_name;
+
+  // Prevent SQL injections
+  location_name = connection.escape(location_name);
+
+  // Build query for getting building info & coordinate info
+  var query = queryBuilder.locationInfoByName(location_name);
+
+  database.once('records', function(msg) {
+      resp.json(msg);
+      resp.end();
+  });
+
+  database.getRecords(query);
+
+
+});
+
 // Start server
 app.listen(8080, function() {
   console.log('Server started!');
