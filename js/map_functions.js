@@ -109,6 +109,7 @@ function addRoute() {
 
   // Check that there are at least 2 points
   if (coords.length < 2) {
+    alert("Please enter a building code and press 'Enter' first.");
     return;
   }
 
