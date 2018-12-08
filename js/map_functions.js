@@ -113,10 +113,13 @@ function addRoute() {
     return;
   }
 
+
+  // Old key: 19392239-126a-4aad-a90d-0c2dd45820e7
+
   // Create routing
   route = L.Routing.control({
     waypoints: coords,
-    router: L.Routing.graphHopper( '19392239-126a-4aad-a90d-0c2dd45820e7' , {
+    router: L.Routing.graphHopper( 'd41525e6-66eb-4c05-9a4d-9c732a8df052' , {
         urlParameters: {
           vehicle: 'foot'
         }
