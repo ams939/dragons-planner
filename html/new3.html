@@ -108,11 +108,12 @@ b {
 }
 </style>
 </head>
-<body>
+<body onload="getAllMarkers()">
 <div id="new1">
 
 
 <div class="w3-container ">
+<img src="../img/logo.png" height="150" width="130" align="left">
   <center><h1>Dragon Planner</h1> 
   <div class="topnav" id="myTopnav">
   <a  href="new1.html" target="_self" ><b><h5>Building Finder  </h5></b></a>
@@ -130,26 +131,47 @@ b {
 <input type = button id = "button1" value = "Get Route" onclick = "addRoute()"/>
 -->
 
+<select required id="types" onchange="getTypeMarkers()">
+      <option value="default" selected disabled hidden>Filter locations</option>
+      <option value="All">Show all</option>
+      <option value="Buildings">Drexel Buildings</option>
+      <option value="Drexel service">Drexel service</option>
+      <option value="Student organization">Student organization</option>
+      <option value="Store">Store</option>
+      <option value="Restaurant">Restaurant</option>
+      <option value="Attraction">Attraction</option>
+      <option value="Other">Other</option>
+</select>
+
+<input type = button id = "button3" value = "Get Route" onclick = "addLocationRoute()"/>
+<div style="padding:10px;background-color:#333">
+<div class="ui-field-contain">
+<label><b>Enter location name:</b></label>
+	<textarea name="textarea" id="name_input"></textarea>
+</div>
+<input type = button id = "button4" value = "Search location by name" onclick = "getLocation()"/>
+</div>
 <div id="mapid"></div><br><br>
 
 <script src="../js/map_functions.js" type="text/javascript"></script>
+<div style="padding:10px;background-color:#333">
 <center><b><h3> Point Info </h3></b></center>
 <div class="ui-field-contain">
-<label for="textarea"><b>Building Name:</b></label>
-	<textarea name="textarea" id="building_name"></textarea>
+<label><b>Building Name:</b></label>
+	<b><div  id = "location_name"> </div> </b>
 </div>
 <!-- <div class="ui-field-contain">
 <label for="textarea"><b>Building Code:</b></label>
 	<textarea name="textarea" id="building_code"></textarea>
 </div> -->
 <div class="ui-field-contain">
-<label for="textarea"><b>Building Description:</b></label>
-	<textarea name="textarea" id="building_desc"></textarea>
+<label><b>Building Description:</b></label>
+	<b><div  id = "location_desc"> </div> </b>
 </div>
-<div class="ui-field-contain">
+<!-- <div class="ui-field-contain">
 <label for="textarea"><b>Type:</b></label>
-	<textarea name="textarea" id="building_type"></textarea>
-</div>
+	<b><div  id = "location_type"> </div> </b>
+</div> -->
 <!--  <div class="w3-third">
     <b>Building Name:</b>
     <b id = "building_name"></b>
@@ -178,8 +200,11 @@ b {
 
 
   </div> --> 
-<div  id = "image_div"> </div>  
 
+<b><div  id = "location_name"> </div> </b>  
+<b><div  id = "location_desc"> </div> </b>
+<div  id = "image_div"> </div>  
+</div>
 </div>
 </body>
 </html>

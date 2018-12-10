@@ -53,6 +53,14 @@ b {
     margin-left: 0;
     margin-right: 0;
 }
+#status_div {
+	display: block;
+    color: white;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+}
 </style>
 <style>
 
@@ -107,9 +115,11 @@ b {
   }
 }
 </style>
+
 </head>
 <body>
 <div class="w3-container ">
+<img src="../img/logo.png" height="150" width="130" align="left">
   <center><h1>Dragon Planner</h1> 
   <div class="topnav" id="myTopnav">
   <a  href="new1.html" target="_self" ><b><h5>Building Finder  </h5></b></a>
@@ -130,22 +140,41 @@ b {
 <div id="mapid"></div><br><br>
 
 <script src="../js/map_functions.js" type="text/javascript"></script>
+<div style="padding:10px;background-color:#333">
 <center><b><h2>Click point on map and enter location information, then click submit</h2></b></center>
+<center><div id = "status_div"></div></center>
 <div class="ui-field-contain">
 <label for="textarea"><b>Building Name:</b></label>
-	<textarea name="textarea" id="building_name"></textarea>
+	<textarea name="textarea" id="name"></textarea>
 </div>
-<div class="ui-field-contain">
+<!-- <div class="ui-field-contain">
 <label for="textarea"><b>Building Code:</b></label>
 	<textarea name="textarea" id="building_code"></textarea>
-</div>
+</div> 
+-->
+<!-- <div class="ui-field-contain">
+<label for="textarea"><b>Building Address:</b></label>
+	<textarea name="textarea" id="building_address"> </textarea>
+</div> -->
 <div class="ui-field-contain">
 <label for="textarea"><b>Building Description:</b></label>
-	<textarea name="textarea" id="building_desc"></textarea>
+	<textarea name="textarea" id="description"></textarea>
 </div>
+
+<select required id="types">
+      <option value="default" selected disabled hidden>Choose location type</option>
+      <option value="Drexel service">Drexel service</option>
+      <option value="Student organization">Student organization</option>
+      <option value="Store">Store</option>
+      <option value="Restaurant">Restaurant</option>
+      <option value="Attraction">Attraction</option>
+      <option value="Other">Other</option>
+</select>
+
+
 <div class="ui-field-contain">
 <label for="textarea"><b>Upload Image:</b></label>
-	<textarea placeholder = "Please enter the link of the image" name="textarea" id="upload_image"></textarea>
+	<textarea placeholder = "Please enter the link of the image" name="textarea" id="location_image"></textarea>
 </div>
 
 <!--  <div class="w3-third">
@@ -176,6 +205,12 @@ b {
 
 
   </div> -->
-<div id = "image_div"> </div>  
+  
+
+<center> 
+<input type = button id = "button1" value = "Enter" onclick = "insertLocation()"/>
+<div id = "image_div"> </div> 
+</center> 
+</div>
 </body>
 </html>
